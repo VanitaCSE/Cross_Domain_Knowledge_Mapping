@@ -7,8 +7,32 @@ The dataset used, `cross_domain_nlp_dataset_5000.csv`, contains around 5000 rows
 
 ## Libraries Used
 
-This project relies on several Python libraries for data processing, NLP, and visualization:
-pip install pandas numpy spacy textacy nltk scikit-learn networkx matplotlib pyvis openpyxl regex transformers
+This project relies on several Python libraries for data processing, NLP, and visualization and UI:
+pip install \
+  pandas \
+  numpy \
+  spacy \
+  nltk \
+  scikit-learn \
+  networkx \
+  matplotlib \
+  seaborn \
+  plotly \
+  pyvis \
+  streamlit \
+  Flask \
+  flask-cors \
+  sentence-transformers \
+  transformers \
+  torch \
+  textblob \
+  pyarrow \
+  pydeck \
+  altair \
+  requests \
+  GitPython \
+  fuzzywuzzy
+
 python -m spacy download en_core_web_sm
 
 
@@ -17,16 +41,35 @@ python -m spacy download en_core_web_sm
 - Cross-domain NLP dataset integration
 - Knowledge graph creation and visualization
 - Support for 10 diverse academic and scientific domains
-
+- Secure user authentication with JWT-based login and token verification
+- User registration and password reset via RESTful API endpoints
+- Role-aware user management using a user type field (e.g., admin, researcher, student)
+- Separate frontend routes for login, registration, and forgot password pages
 
 ## Usage
 
-Include instructions for running scripts or visualizations here (e.g., Python command to run main script).
+### 1. Backend (Flask API)
+cd ui
+python server.py
+
+text
+
+- The authentication API and HTML pages will be available at `http://127.0.0.1:5000/`.
+- Open `http://127.0.0.1:5000/` in your browser to access the login page.
+
+### 2. Frontend (Streamlit app)
+
+cd ui
+streamlit run app.py
+
+text
+
+- Streamlit will print a local URL (e.g., `http://localhost:8501`) in the terminal.
+- Open that URL in your browser to use the cross-domain knowledge mapping interface.
 
 
 ## License
 
-This project currently does not include a license.
-
-
+This project is licensed under the MIT License.  
+See the [LICENSE](LICENSE) file for details.
 
