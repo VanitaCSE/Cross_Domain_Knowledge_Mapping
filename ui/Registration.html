@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - Cross Domain Knowledge Mapping</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, #11998e, #38ef7d, #0f9b0f, #1abc9c);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    padding: 20px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    animation: float 15s infinite;
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+.particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+.particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+.particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+.particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+.particle:nth-child(7) { left: 70%; animation-delay: 2s; }
+.particle:nth-child(8) { left: 80%; animation-delay: 4s; }
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.logo-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 32px;
+    box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  -webkit-background-clip: text; /* for older WebKit */
+  background-clip: text;         /* standard property */
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+
+.subtitle {
+    text-align: center;
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 14px 18px;
+    padding-left: 48px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+}
+
+.input-group select {
+    padding-left: 48px;
+    cursor: pointer;
+    appearance: none;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #11998e;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(17, 153, 142, 0.1);
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #a0aec0;
+    transition: color 0.3s ease;
+}
+
+.input-group input:focus ~ .input-icon,
+.input-group select:focus ~ .input-icon {
+    color: #11998e;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(17, 153, 142, 0.5);
+}
+
+.link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #11998e;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.link:hover {
+    color: #0d7d6e;
+}
+
+#regMsg {
+    text-align: center;
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+#regMsg.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#regMsg.error { background: #fed7d7; color: #c53030; }
+#regMsg.success { background: #c6f6d5; color: #276749; }
+
+.password-strength {
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    width: 0%;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<div class="container">
+    <div class="logo-icon">📝</div>
+    <h2>Create Account</h2>
+    <p class="subtitle">Join the Knowledge Mapping Platform</p>
+
+    <div class="input-group">
+        <input type="text" id="regName" placeholder="Full Name" required>
+        <span class="input-icon">👤</span>
+    </div>
+
+    <div class="input-group">
+        <input type="password" id="regPass" placeholder="Password" required oninput="checkPasswordStrength()">
+        <span class="input-icon">🔒</span>
+        <div class="password-strength">
+            <div class="password-strength-bar" id="strengthBar"></div>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <input type="password" id="regConfirm" placeholder="Confirm Password" required>
+        <span class="input-icon">🔐</span>
+    </div>
+
+    <div class="input-group">
+        <select id="regType" required>
+            <option value="">Select User Type</option>
+            <option>Policy makers</option>
+            <option>Students</option>
+            <option>Researchers</option>
+            <option>Data scientists</option>
+            <option>Industry professionals</option>
+            <option>Teachers/trainers</option>
+            <option>Organizations</option>
+            <option>Developers</option>
+            <option>Career counselors</option>
+            <option>Startups</option>
+            <option>Business analysts</option>
+            <option>AI/ML engineers</option>
+            <option>R&D teams</option>
+            <option>Other</option>
+        </select>
+        <span class="input-icon">🏷️</span>
+    </div>
+
+    <button class="btn" onclick="register()">Create Account</button>
+    <div class="link" onclick="window.location.href='/'">← Back to Login</div>
+
+    <p id="regMsg"></p>
+</div>
+
+<script>
+function showMessage(msg, type) {
+    const msgEl = document.getElementById('regMsg');
+    msgEl.textContent = msg;
+    msgEl.className = 'show ' + type;
+}
+
+function checkPasswordStrength() {
+    const password = document.getElementById('regPass').value;
+    const bar = document.getElementById('strengthBar');
+    let strength = 0;
+    
+    if (password.length >= 6) strength += 25;
+    if (password.length >= 10) strength += 25;
+    if (/[0-9]/.test(password)) strength += 25;
+    if (/[A-Za-z]/.test(password)) strength += 25;
+    
+    bar.style.width = strength + '%';
+    
+    if (strength <= 25) {
+        bar.style.background = '#e53e3e';
+    } else if (strength <= 50) {
+        bar.style.background = '#ed8936';
+    } else if (strength <= 75) {
+        bar.style.background = '#ecc94b';
+    } else {
+        bar.style.background = '#38a169';
+    }
+}
+
+async function register() {
+    let username = regName.value.trim();
+    let password = regPass.value;
+    let confirm = regConfirm.value;
+    let type = regType.value;
+
+    if (!username || !password || !confirm || !type) {
+        showMessage("Please fill all fields", "error");
+        return;
+    }
+
+    if (password.length < 6 || !/[0-9]/.test(password) || !/[A-Za-z]/.test(password) || /\s/.test(password)) {
+        showMessage("Password must be at least 6 chars with letters & numbers", "error");
+        return;
+    }
+
+    if (password !== confirm) {
+        showMessage("Passwords do not match", "error");
+        return;
+    }
+
+    try {
+        let res = await fetch("http://127.0.0.1:5000/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password, usertype: type })
+        });
+
+        let data = await res.json();
+
+        if (res.status === 200) {
+            showMessage("Registered Successfully! Redirecting...", "success");
+            setTimeout(() => window.location.href = "/", 1500);
+        } else {
+            showMessage(data.msg, "error");
+        }
+    } catch (err) {
+        showMessage("Server Error!", "error");
+    }
+}
+</script>
+
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - Cross Domain Knowledge Mapping</title>
+<style>
+body {
+    margin: 0; padding: 0; font-family: Arial, sans-serif;
+    background: url("/static/register.jpg") no-repeat center center/cover;
+
+    height: 100vh; display: flex; justify-content: center; align-items: center;
+}
+.container {
+    width: 380px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+h2 { text-align: center; margin-bottom: 20px; }
+input, select { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #888; border-radius: 5px; }
+.btn { width: 100%; padding: 10px; background: #8a44a1; color: white; border: none; border-radius: 5px; cursor: pointer; }
+.btn:hover { background: #6e1bdb; }
+.link { text-align:center; margin-top:10px; color:#b072b0; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+    <input type="text" id="regName" placeholder="Full Name" required>
+    <input type="password" id="regPass" placeholder="Password" required>
+    <input type="password" id="regConfirm" placeholder="Confirm Password" required>
+
+    <select id="regType">
+        <option value="">Select User Type</option>
+        <option>Policy makers</option>
+        <option>Students</option>
+        <option>Researchers</option>
+        <option>Data scientists</option>
+        <option>Industry professionals</option>
+        <option>Teachers/trainers</option>
+        <option>Organizations</option>
+        <option>Developers</option>
+        <option>Career counselors</option>
+        <option>Startups</option>
+        <option>Business analysts</option>
+        <option>AI/ML engineers</option>
+        <option>R&D teams</option>
+        <option>Other</option>
+    </select>
+
+    <button class="btn" onclick="register()">Register</button>
+    <div class="link" onclick="window.location.href='/'">Back to Login</div>
+
+    <p id="regMsg" style="color:red; text-align:center;"></p>
+</div>
+
+<script>
+async function register() {
+
+    let username = regName.value.trim();
+    let password = regPass.value;
+    let confirm = regConfirm.value;
+    let type = regType.value;
+
+    if (!username || !password || !confirm || !type) {
+        regMsg.innerText = "Please fill all fields";
+        return;
+    }
+
+    if (password.length < 6 || !/[0-9]/.test(password) ||
+         !/[A-Za-z]/.test(password) || /\s/.test(password)) {
+        regMsg.innerText = "Password must be at least 6 characters and contain letters & numbers";
+        return;
+    }
+
+    if (password !== confirm) {
+        regMsg.innerText = "Passwords do not match";
+        return;
+    }
+
+    let res = await fetch("http://127.0.0.1:5000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, usertype: type })
+    });
+
+    let data = await res.json();
+
+    if (res.status === 200) {
+        regMsg.style.color = "green";
+        regMsg.innerText = "Registered Successfully!";
+        setTimeout(() => window.location.href = "/", 1000);
+
+    } else {
+        regMsg.innerText = data.msg;
+    }
+}
+</script>
+
+
+</body>
+</html> -->
